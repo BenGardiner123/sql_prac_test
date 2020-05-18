@@ -145,3 +145,30 @@ select *
 from SubjectOffering;
 -- need to check with tim how to do this better--
 -- also need a better shortcut to enter and separate the data
+
+/* 
+Query 1:
+Write a query that shows the student first name and surname, the subject code and
+description, the subject offering year, semester & fee and the given name and surname of the
+teacher for that subject offering.
+inner joins
+
+Query 2:
+• Write a query which shows the number of enrolments, for each year and semester in the
+following example format. For example:  
+----i think this is a count 
+
+Query 3:
+Write a query which lists all enrolments which for the subject offering which has the highest
+fee. (This query must use a sub-query.) 
+
+TASK 5 need to create a view  for the revious 3 queries
+
+task 6 
+check with tim re the * client command
+
+
+
+*/
+
+
