@@ -59,7 +59,7 @@ PRIMARY KEY (StaffID)
 
 CREATE TABLE SubjectOffering
 (SubjCode NVARCHAR(50), 
-Year DATE, 
+Year INT, 
 Semester INT,
 Fee INT, 
 StaffID NVARCHAR(50),
@@ -72,16 +72,17 @@ CREATE TABLE STUDENT
 (StudentID NVARCHAR(50), 
 Surname NVARCHAR(50), 
 GivenName NVARCHAR(50), 
-Gender CHAR,
+Gender CHAR NULL,
 PRIMARY KEY (StudentID)
 );
 
 CREATE TABLE ENROLMENT
 (StudentID NVARCHAR(50), 
 SubjCode NVARCHAR(50),
-Year DATE, 
+Year INT, 
 Semester INT,
-DateEnrolled DATE,
+DateEnrolled DATE NULL,
+Grade NVARCHAR(5),
 PRIMARY KEY (StudentID, SubjCode, Year, Semester), 
 FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SubjectOffering,
 FOREIGN KEY (StudentID) REFERENCES student 
@@ -89,7 +90,42 @@ FOREIGN KEY (StudentID) REFERENCES student
 
 GO */
 
-SELECT 
+-- task 3 prove all tables have been created -- 
+/* SELECT 
     *
 FROM
-    information_schema.tables;
+    information_schema.tables; */
+
+INSERT INTO SUBJECT (SubjCode, Description) VALUES
+('ICTWEB425', 'Apply SQL to extract & manipulate data'),
+('ICTDBS403', 'Create Basic Databases'),
+('ICTDBS502', 'Design a Database');
+
+
+INSERT INTO TEACHER (StaffID, Surname,GivenName) VALUES
+('98776655', 'Starr', 'Ringo'),
+('87665544', 'Lennon', 'John'),
+('76554433', 'McCartney', 'Paul');
+
+
+INSERT INTO SubjectOffering (Year,Semester, Fee, StaffID) VALUES
+('ICTWEB425'	'2018'	'1'	'200'	'98776655'),
+('ICTWEB425'	'2019'	'1'	'225'	'98776655'),
+('ICTDBS403'	'2019'	'1'	'200'	'87665544'),
+('ICTDBS403'	'2019'	'2'	'200'	'76554433'),
+('ICTDBS502'	'2018'	'2'	'225'	'87665544');
+
+
+INSERT INTO ENROLMENT ( StudentID, SubjCode, Year, Semester, DateEnrolled, Grade) VALUES
+('ICTWEB425'	'2018'	'1'	'200'	'98776655')
+('ICTWEB425'	'2019'	'1'	'225'	'98776655')
+('ICTDBS403'	'2019'	'1'	'200'	'87665544')
+('ICTDBS403'	'2019'	'2'	'200'	'76554433')
+('ICTDBS502'	'2018'	'2'	'225'	'87665544')
+
+
+INSERT INTO STUDENT (StudentID, Surname, GivenName, Gender) VALUES
+('s12233445'	'Morrison'	'Scott'	'M'),
+('s23344556'	'Gillard'	'Julia'	'F'),
+('s34455667'	'Whitlam'	'Gough'	'M');
+
