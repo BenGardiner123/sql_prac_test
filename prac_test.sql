@@ -88,7 +88,7 @@ FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SubjectOffering,
 FOREIGN KEY (StudentID) REFERENCES student 
 );
 
-GO */
+GO    */
 
 -- task 3 prove all tables have been created -- 
 /* SELECT 
@@ -96,7 +96,7 @@ GO */
 FROM
     information_schema.tables; */
 
-INSERT INTO SUBJECT (SubjCode, Description) VALUES
+/* INSERT INTO SUBJECT (SubjCode, Description) VALUES
 ('ICTWEB425', 'Apply SQL to extract & manipulate data'),
 ('ICTDBS403', 'Create Basic Databases'),
 ('ICTDBS502', 'Design a Database');
@@ -108,24 +108,40 @@ INSERT INTO TEACHER (StaffID, Surname,GivenName) VALUES
 ('76554433', 'McCartney', 'Paul');
 
 
-INSERT INTO SubjectOffering (Year,Semester, Fee, StaffID) VALUES
-('ICTWEB425'	'2018'	'1'	'200'	'98776655'),
-('ICTWEB425'	'2019'	'1'	'225'	'98776655'),
-('ICTDBS403'	'2019'	'1'	'200'	'87665544'),
-('ICTDBS403'	'2019'	'2'	'200'	'76554433'),
-('ICTDBS502'	'2018'	'2'	'225'	'87665544');
-
-
-INSERT INTO ENROLMENT ( StudentID, SubjCode, Year, Semester, DateEnrolled, Grade) VALUES
-('ICTWEB425'	'2018'	'1'	'200'	'98776655')
-('ICTWEB425'	'2019'	'1'	'225'	'98776655')
-('ICTDBS403'	'2019'	'1'	'200'	'87665544')
-('ICTDBS403'	'2019'	'2'	'200'	'76554433')
-('ICTDBS502'	'2018'	'2'	'225'	'87665544')
-
+INSERT INTO SubjectOffering (SubjCode, Year, Semester, Fee, StaffID) VALUES
+('ICTWEB425',   '2018',	'1', '200', '98776655'),
+('ICTWEB425',	'2019',	'1',  '225', '98776655'),
+('ICTDBS403',	'2019',	'1', '200', '87665544'),
+('ICTDBS403',	'2019',	'2', '200', '76554433'),
+('ICTDBS502',	'2018',	'2', '225', '87665544');
 
 INSERT INTO STUDENT (StudentID, Surname, GivenName, Gender) VALUES
-('s12233445'	'Morrison'	'Scott'	'M'),
-('s23344556'	'Gillard'	'Julia'	'F'),
-('s34455667'	'Whitlam'	'Gough'	'M');
+('s12233445',   'Morrison', 'Scott',	'M'),
+('s23344556',	'Gillard',	'Julia',	'F'),
+('s34455667',	'Whitlam',	'Gough',	'M'),
+('s102151272',	'Gardiner',	'Ben',	    'M'), 
+('s1223344',	'Mitch',	'Mitch',	'M'); 
+ 
 
+
+INSERT INTO ENROLMENT (StudentID, SubjCode, Year, Semester, DateEnrolled, Grade) VALUES
+('s1223344', 'ICTWEB425','2018',	'1', NULL,	'D'),
+('s23344556','ICTWEB425', '2018',	'1', NULL,	'P'),
+('s1223344', 'ICTWEB425', '2019',   '1', NULL,	'C'),
+('s23344556', 'ICTWEB425', '2019',	'1', NULL,	'HD'),
+('s34455667', 'ICTWEB425', '2019',	'1', NULL,	'P'),
+('s1223344', 'ICTDBS403', '2019',	'1', NULL,	'C'),
+('s23344556', 'ICTDBS403', '2019',	'2', NULL,   NULL),
+('s34455667', 'ICTDBS403', '2019',	'2', NULL,   NULL),
+('s23344556', 'ICTDBS502', '2018',	'2', NULL,	'P'),
+('s34455667', 'ICTDBS502', '2018',	'2', NULL,	'N');   */
+
+
+select *
+from student;
+select *
+from enrolment;
+select *
+from SubjectOffering;
+-- need to check with tim how to do this better--
+-- also need a better shortcut to enter and separate the data
