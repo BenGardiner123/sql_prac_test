@@ -16,9 +16,9 @@ FK: SubjCode REFERENCES subject
 FK: StaffID REFERENCES TEACHER
 
 ENROLMENT ( StudentID, SubjCode, Year, Semester, DateEnrolled, Grade)
-PK: StudentID, SubjCode, Year, Semester
-FK: SubjCode, Year, Semester REFERENCES SubjectOffering
-FK: StudentID REFERENCES student 
+PK: (StudentID, SubjCode, Year, Semester)
+FK: (SubjCode, Year, Semester) REFERENCES SubjectOffering
+FK: (StudentID) REFERENCES student 
 
 STUDENT (StudentID, Surname, GivenName, Gender)
 PK:StudentID */
@@ -137,12 +137,7 @@ INSERT INTO ENROLMENT (StudentID, SubjCode, Year, Semester, DateEnrolled, Grade)
 ('s34455667', 'ICTDBS502', '2018',	'2', NULL,	'N');   */
 
 
-select *
-from student;
-select *
-from enrolment;
-select *
-from SubjectOffering;
+-- select *
 -- need to check with tim how to do this better--
 -- also need a better shortcut to enter and separate the data
 
@@ -153,22 +148,84 @@ description, the subject offering year, semester & fee and the given name and su
 teacher for that subject offering.
 inner joins
 
-Query 2:
+*/
+-- Select rows from a Table or View 'TableOrViewName' in schema 'SchemaName'
+/* SELECT st.GivenName, st.Surname, s.SubjCode, s.[Description], so.[Year], so.Semester, so.Fee, t.GivenName, t.Surname
+
+/* stu.GivenName, stu.Surname, sub.SubjCode, sub.Description, suboff.subjyear, suboff.semester, suboff.fee, t.GivenName, t.Surname
+ */
+
+/* FROM  ENROLMENT e
+LEFT JOIN SubjectOffering so
+ON e.SubjCode = so.SubjCode
+AND e.year = so.year
+AND e.Semester = so.Semester
+-- use and to join tables with composite keys
+
+LEFT JOIN student st 
+ON e.StudentID  = st.StudentID
+
+LEFT join subject s 
+on so.SubjCode = s.SubjCode
+
+left join teacher t
+on so.StaffID = t.StaffID
+
+ORDER BY s.SubjCode; 
+
+
+
+SELECT * 
+FROM sys.tables;
+ */
+
+
+/* Query 2:
 • Write a query which shows the number of enrolments, for each year and semester in the
 following example format. For example:  
-----i think this is a count 
+----i think this is a count  */
+/* 
+SELECT E.YEAR, E.SEMESTER, COUNT(*) as 'Num Enrollments'
 
-Query 3:
+FROM ENROLMENT E
+
+GROUP BY E.YEAR, E.Semester
+
+ORDER BY E.Year ASC, E.SEMESTER DESC; */
+
+-- this looks correct==== yes only took me 20 minutes
+
+
+
+
+/* Query 3:
 Write a query which lists all enrolments which for the subject offering which has the highest
 fee. (This query must use a sub-query.) 
-
-TASK 5 need to create a view  for the revious 3 queries
-
-task 6 
-check with tim re the * client command
-
-
-
 */
+SELECT *
+
+FROM ENROLMENT E 
+LEFT JOIN SubjectOffering SO
+ON E.SubjCode = SO.SubjCode
+AND E.YEAR = SO.YEAR
+AND E.SEMESTER = SO.Semester
+
+WHERE SO.Fee = (SELECT MAX(SO.Fee) FROM SubjectOffering SO
+)
+
+ORDER BY SO.SubjCode ASC;
+
+-- THINK THIS IS OK
+
+
+
+-- TASK 5 need to create a view  for the revious 3 queries
+
+
+
+-- task 6 
+-- check with tim re the * client command */
+
+
 
 
