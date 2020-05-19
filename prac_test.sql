@@ -259,8 +259,8 @@ FROM ENRLALL;
 
 --task 6 ---------------------------------
 
-select count(SubjCode)
-from ENROLMENT;
+/* select count(SubjCode)
+from ENROLMENT; */
 -- this does not count any null values as enrolment date is potentially null you could end up counting instances wher thestudent is not enrolled.
 
 
