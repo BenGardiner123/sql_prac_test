@@ -202,9 +202,11 @@ ORDER BY E.Year ASC, E.SEMESTER DESC; */
 Write a query which lists all enrolments which for the subject offering which has the highest
 fee. (This query must use a sub-query.) 
 */
-SELECT *
+-- SELECT *
 
-FROM ENROLMENT E 
+
+-- ENROLMENTS HAS A RELATIONSHIP WITH SUBJECTOFFERING WHIC HAS A COMPSITEE KEY THAT REQUIRES THE AND ++ BELOW. wHERE SELECTS THE FEILD AND THEN USE A SUBQUERY TO SELECT THE THE MAX VALUE(FEE) FORM SUBJECT OFFERING AND BIIND IT TO THE FEE IN THE WHERE. 
+/* FROM ENROLMENT E 
 LEFT JOIN SubjectOffering SO
 ON E.SubjCode = SO.SubjCode
 AND E.YEAR = SO.YEAR
@@ -213,18 +215,54 @@ AND E.SEMESTER = SO.Semester
 WHERE SO.Fee = (SELECT MAX(SO.Fee) FROM SubjectOffering SO
 )
 
-ORDER BY SO.SubjCode ASC;
+ORDER BY SO.SubjCode ASC; */
 
 -- THINK THIS IS OK
 
 
+-- TASK 5 need to create a view  for the QUERY 1 IN TASK 4
+/* 
+*/
 
--- TASK 5 need to create a view  for the revious 3 queries
+
+/*  CREATE VIEW ENRLALL AS
+-- here i have to create aliases for the given name and surnames. The view has no way of knowing that they are from different tables.
+SELECT st.GivenName as "student given name", st.Surname as "student surname", s.SubjCode, s.[Description], so.[Year], so.Semester, so.Fee, t.GivenName as "Teachers Given Name", t.Surname as "Teacher Surname"
+
+FROM  ENROLMENT e
+LEFT JOIN SubjectOffering so
+ON e.SubjCode = so.SubjCode
+AND e.year = so.year
+AND e.Semester = so.Semester
+-- use and to join tables with composite keys
+
+LEFT JOIN student st 
+ON e.StudentID  = st.StudentID
+
+LEFT join subject s 
+on so.SubjCode = s.SubjCode
+
+left join teacher t
+on so.StaffID = t.StaffID  */
 
 
+--can't use order by apprently in a view ====ORDER BY s.SubjCode;  
 
--- task 6 
--- check with tim re the * client command */
+
+/* 
+
+select *
+FROM ENRLALL; 
+--DROP VIEW ENRLALL;
+*/
+
+
+--task 6 ---------------------------------
+
+select count(SubjCode)
+from ENROLMENT;
+-- this does not count any null values as enrolment date is potentially null you could end up counting instances wher thestudent is not enrolled.
+
 
 
 
