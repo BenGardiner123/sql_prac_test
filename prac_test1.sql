@@ -65,7 +65,7 @@ SELECT *
 FROM sys.tables;    */
  
 
-INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
+/* INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
 ('s12233445',	'Morrison',	'Scott',	'M'),
 ('s23344556',	'Gillard',	'Julia',	'F'),
 ('s39349499',	'Gardienr',	'Ben',	    'M'),
@@ -102,8 +102,23 @@ INSERT INTO ENROLMENT (StudentId, SubjCode, Year, Semester, Grade) VALUES
 ('s23344556',	'ICTDBS403',	'2019',	'2',    NULL),
 ('s34455667',	'ICTDBS403',	'2019',	'2',	NULL),
 ('s23344556',	'ICTDBS502',	'2018',	'2',	'P'),
-('s34455667',	'ICTDBS502',	'2018',	'2',	'N');
+('s34455667',	'ICTDBS502',	'2018',	'2',	'N'); */
 
+/* 
+SELECT st.GivenName, st.Surname, sub.SubjCode, sub.Description, so.Year, so.Semester, so.Fee, t.GivenName, t.Surname
+FROM enrolment e
+left join SubjectOffering so
+on  so.SubjCode = e.SubjCode
+and so.Year = e.[Year]
+and so.Semester = e.Semester
+--- i need to use and to join tables wuit a composte key
 
+LEFT JOIN STUDENT st
+ON st.StudentId = e.StudentID
 
+left JOIN teacher t
+on t.StaffID = so.StaffID
+
+LEFT JOIN SUBJECT sub
+on sub.SubjCode = so.SubjCode; */
 
