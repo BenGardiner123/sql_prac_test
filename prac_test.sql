@@ -267,3 +267,28 @@ from ENROLMENT; */
 
 
 
+/* SELECT *
+
+
+-- ENROLMENTS HAS A RELATIONSHIP WITH SUBJECTOFFERING WHIC HAS A COMPSITEE KEY THAT REQUIRES THE AND ++ BELOW. wHERE SELECTS THE FEILD AND THEN USE A SUBQUERY TO SELECT THE THE MAX VALUE(FEE) FORM SUBJECT OFFERING AND BIIND IT TO THE FEE IN THE WHERE. 
+FROM ENROLMENT E 
+LEFT JOIN SubjectOffering SO 
+ON E.SubjCode = SO.SubjCode
+AND E.YEAR = SO.YEAR
+AND E.SEMESTER = SO.Semester
+
+WHERE SO.Fee = (SELECT MAX(SO.Fee) FROM SubjectOffering SO
+)
+
+ORDER BY SO.SubjCode ASC; 
+
+-- select fee
+from subjectoffering
+order by fee desceding 
+
+select max(SO.Fee), count(*)
+from SubjectOffering SO
+where fee is not null
+ */
+
+/*  to know if the number of rows makes sense you need to be able figure out how many rows there are hence the count approach is a good one. */
