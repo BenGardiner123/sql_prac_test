@@ -126,11 +126,24 @@ on sub.SubjCode = so.SubjCode;  */
 Write a query which shows the number of enrolments, for each year and semester in the
 following example format. For example */
 
-SELECT E.YEAR, E.Semester, COUNT(distinct E.StudentID) as 'Num Enrollments'
+/* SELECT E.YEAR, E.Semester, COUNT(distinct E.StudentID) as 'Num Enrollments'
 
 FROM  ENROLMENT E
 
 GROUP by E.YEAR, E.Semester
 
 ORDER BY YEAR ASC, Semester DESC;
+ */
+
+/*  SELECT *
+ FROM ENROLMENT E
+ INNER JOIN SubjectOffering SO
+ ON SO.SubjCode = E.SubjCode
+ AND SO.Year = E.[Year] 
+ AND SO.Semester = E.Semester
+
+ WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SubjectOffering SO)
+
+ORDER BY SO.SubjCode ASC; */
+
 
