@@ -147,3 +147,25 @@ ORDER BY YEAR ASC, Semester DESC;
 ORDER BY SO.SubjCode ASC; */
 
 
+/* CREATE VIEW FULLENROL AS
+SELECT st.GivenName AS "STUDENT GIVEN NAME", st.Surname AS "STUDENT SURNAME", sub.SubjCode, sub.Description, so.Year, so.Semester, so.Fee, t.GivenName, t.Surname
+FROM enrolment e
+LEFT JOIN SubjectOffering so
+on  so.SubjCode = e.SubjCode
+and so.Year = e.[Year]
+and so.Semester = e.Semester
+--- i need to use ***and*** to join tables wuit a composte key
+
+LEFT JOIN STUDENT st
+ON st.StudentId = e.StudentID
+
+LEFT JOIN teacher t
+on t.StaffID = so.StaffID
+
+LEFT JOIN SUBJECT sub
+on sub.SubjCode = so.SubjCode;  */
+
+-- MAIN THING WIHTTHE IEW IS IF YOU HAVE REPRETAED TABLE HEADINGS THEY MUST BE ALIASED
+
+SELECT *
+FROM FULLENROL;
