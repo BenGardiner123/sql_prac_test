@@ -167,5 +167,29 @@ on sub.SubjCode = so.SubjCode;  */
 
 -- MAIN THING WIHTTHE IEW IS IF YOU HAVE REPRETAED TABLE HEADINGS THEY MUST BE ALIASED
 
+/* SELECT *
+FROM FULLENROL; */
+
+/* SELECT COUNT(*)
+FROM ENROLMENT;
+ */
+-- THIS SHOWS THE AMOUNT OF ENROLEMTS - WHICH IS RIGHT - HOWVER 2 OF THESE ARE NULL GRADES.
+
+/* SELECT DISTINCT StudentID,COUNT(*)
+FROM ENROLMENT
+GROUP BY StudentID;
+
+SELECT * 
+FROM ENROLMENT; */
+
+--  TEN ORWS IN ENROLMENT, TEN HERE.
+
 SELECT *
-FROM FULLENROL;
+FROM enrolment e
+LEFT JOIN SubjectOffering so
+on  so.SubjCode = e.SubjCode
+and so.Year = e.[Year]
+and so.Semester = e.Semester
+
+-- this gives me all the Fee accourances matched with the subject.
+
