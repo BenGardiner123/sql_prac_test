@@ -104,14 +104,14 @@ INSERT INTO ENROLMENT (StudentId, SubjCode, Year, Semester, Grade) VALUES
 ('s23344556',	'ICTDBS502',	'2018',	'2',	'P'),
 ('s34455667',	'ICTDBS502',	'2018',	'2',	'N'); */
 
-/* 
-SELECT st.GivenName, st.Surname, sub.SubjCode, sub.Description, so.Year, so.Semester, so.Fee, t.GivenName, t.Surname
+-- task 4 
+/* SELECT st.GivenName, st.Surname, sub.SubjCode, sub.Description, so.Year, so.Semester, so.Fee, t.GivenName, t.Surname
 FROM enrolment e
-left join SubjectOffering so
+LEFT JOIN SubjectOffering so
 on  so.SubjCode = e.SubjCode
 and so.Year = e.[Year]
 and so.Semester = e.Semester
---- i need to use and to join tables wuit a composte key
+--- i need to use ***and*** to join tables wuit a composte key
 
 LEFT JOIN STUDENT st
 ON st.StudentId = e.StudentID
@@ -120,5 +120,17 @@ left JOIN teacher t
 on t.StaffID = so.StaffID
 
 LEFT JOIN SUBJECT sub
-on sub.SubjCode = so.SubjCode; */
+on sub.SubjCode = so.SubjCode;  */
+
+/* 
+Write a query which shows the number of enrolments, for each year and semester in the
+following example format. For example */
+
+SELECT E.YEAR, E.Semester, COUNT(distinct E.StudentID) as 'Num Enrollments'
+
+FROM  ENROLMENT E
+
+GROUP by E.YEAR, E.Semester
+
+ORDER BY YEAR ASC, Semester DESC;
 
