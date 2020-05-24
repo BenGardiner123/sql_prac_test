@@ -1,15 +1,21 @@
-IF OBJECT_ID('Enrolment') IS NOT NULL
-DROP TABLE Enrolment;
-IF OBJECT_ID('SubjectOffering') IS NOT NULL
-DROP TABLE SubjectOffering;
-IF OBJECT_ID('Student') IS NOT NULL
-DROP TABLE Student;
-IF OBJECT_ID('Teacher') IS NOT NULL
-DROP TABLE Teacher;
-IF OBJECT_ID('STUDENT') IS NOT NULL
-DROP TABLE STUDENT;
-IF OBJECT_ID('SUBJECT') IS NOT NULL
-DROP TABLE SUBJECT;
+-- Ben garadiner 102151272
+
+/* SUBJECT (SubjCode, Description)
+PK:SubjCode
+
+TEACHER(StaffID, Surname, GivenName)
+PK:StaffID
+
+SUBJECTOFFERING (SubjCode, Year, Semester, Fee)
+PK:SubjCode, Year, Semester
+FK:(SubjCode) REFERENCES Subject
+
+STUDENT(StudentID, Surname, GivenName, Gender)
+PK:StudentID
+
+ENROLMENT(StudentID, SubjCode, Year, Semester, DateEnrolled, Grade)
+PK:SubjCode, Year, Semester
+FK:(SubjCode, Year, Semester) REFERENCES SubjectOffering */
 
 
-GO
+
