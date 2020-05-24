@@ -165,10 +165,20 @@ on S.SubjCode = so.SubjCode
 LEFT join Teacher T
 on T.StaffID = so.StaffID */
 
-SELECT E.YEAR, E.Semester, COUNT(*)
+/* SELECT E.YEAR, E.Semester, COUNT(*) AS "NUM ENROLMENTS"
 From ENROLMENT E
 GROUP BY E.YEAR, E.SEMESTER
-ORDER BY E.YEAR ASC, E.Semester DESC
+ORDER BY E.YEAR ASC, E.Semester DESC */
+
+-- TASK4 QUERY 3 -- -
+
+SELECT E.StudentID, E.SubjCode, E.Year, E.Semester, SO.FEE
+FROM ENROLMENT E
+INNER JOIN SubjectOffering SO
+ON SO.SubjCode = E.SubjCode
+AND SO.[Year] = E.[Year]
+AND SO.Semester = E.Semester
+WHERE SO.Fee = (SELECT MAX(SO.Fee) FROM SubjectOffering SO)
 
 
 
