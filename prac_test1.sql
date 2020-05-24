@@ -1,6 +1,6 @@
 /* Ben Gardiner 102151272 */
 
-/*  IF OBJECT_ID('Enrolment') IS NOT NULL
+/* IF OBJECT_ID('Enrolment') IS NOT NULL
 DROP TABLE Enrolment;
 IF OBJECT_ID('SubjectOffering') IS NOT NULL
 DROP TABLE SubjectOffering;
@@ -62,7 +62,7 @@ PRIMARY KEY (StaffID)
 );
 
 SELECT * 
-FROM sys.tables;    */
+FROM sys.tables;   */  
  
 
 /* INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
@@ -166,21 +166,21 @@ LEFT JOIN SUBJECT sub
 on sub.SubjCode = so.SubjCode;  */
 
 -- MAIN THING WIHTTHE IEW IS IF YOU HAVE REPRETAED TABLE HEADINGS THEY MUST BE ALIASED
-
+-- 1
 /* SELECT *
-FROM FULLENROL; */
-
-/* SELECT COUNT(*)
+FROM FULLENROL; 
+-- 2
+SELECT COUNT(*)
 FROM ENROLMENT;
- */
+--  3
 -- THIS SHOWS THE AMOUNT OF ENROLEMTS - WHICH IS RIGHT - HOWVER 2 OF THESE ARE NULL GRADES.
 
-/* SELECT DISTINCT StudentID,COUNT(*)
+SELECT DISTINCT StudentID,COUNT(*)
 FROM ENROLMENT
 GROUP BY StudentID;
 
 SELECT * 
-FROM ENROLMENT; */
+FROM ENROLMENT; 
 
 --  TEN ORWS IN ENROLMENT, TEN HERE.
 
@@ -189,7 +189,7 @@ FROM enrolment e
 LEFT JOIN SubjectOffering so
 on  so.SubjCode = e.SubjCode
 and so.Year = e.[Year]
-and so.Semester = e.Semester
+and so.Semester = e.Semester */
 
 -- this gives me all the Fee accourances matched with the subject.
 
