@@ -138,7 +138,7 @@ INSERT INTO ENROLMENT (StudentId, SubjCode, Year, Semester, Grade) VALUES
 /* 
 SELECT *
 FROM Student; */
-
+/* 
 SELECT 
 ST.GivenName,
 ST.Surname,
@@ -163,7 +163,12 @@ LEFT JOIN Subject S
 on S.SubjCode = so.SubjCode
 
 LEFT join Teacher T
-on T.StaffID = so.StaffID
+on T.StaffID = so.StaffID */
+
+SELECT E.YEAR, E.Semester, COUNT(*)
+From ENROLMENT E
+GROUP BY E.YEAR, E.SEMESTER
+ORDER BY E.YEAR ASC, E.Semester DESC
 
 
 
