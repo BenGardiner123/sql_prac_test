@@ -22,7 +22,7 @@ FK:(SubjCode, Year, Semester) REFERENCES SubjectOffering */
 
 -- task2------
 
-/* IF OBJECT_ID('ENROLMENT') IS NOT NULL
+/*  IF OBJECT_ID('ENROLMENT') IS NOT NULL
 DROP TABLE ENROLMENT;
 IF OBJECT_ID('SUBJECTOFFERING') IS NOT NULL
 DROP TABLE SUBJECTOFFERING;
@@ -43,8 +43,8 @@ SubjCode NVARCHAR(100)
 
 CREATE TABLE TEACHER(
 StaffID INT CONSTRAINT check_TEACHER_sTAFFid CHECK (LEN(StaffID)= 8)
-, Surname NVARCHAR(50) NOT NULL
-, GivenName NVARCHAR(1) NOT NULL
+, Surname NVARCHAR(100) NOT NULL
+, GivenName NVARCHAR(100) NOT NULL
 , PRIMARY KEY (StaffID)
 );
 
@@ -95,10 +95,10 @@ EXEC SP_COLUMNS SubjectOffering;
 EXEC SP_COLUMNS Enrolment;
 ​
 GO
- */
+  */
 
 --  task 3 ----- 
-INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
+/* INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
 ('s12233445',	'Morrison',	'Scott',	'M'),
 ('s23344556',	'Gillard',	'Julia',	'F'),
 ('s39349499',	'Gardienr',	'Ben',	    'M'),
@@ -134,6 +134,35 @@ INSERT INTO ENROLMENT (StudentId, SubjCode, Year, Semester, Grade) VALUES
 ('s23344556',	'ICTDBS403',	'2019',	'2',    NULL),
 ('s34455667',	'ICTDBS403',	'2019',	'2',	NULL),
 ('s23344556',	'ICTDBS502',	'2018',	'2',	'P'),
-('s34455667',	'ICTDBS502',	'2018',	'2',	'N'); 
+('s34455667',	'ICTDBS502',	'2018',	'2',	'N');  */
+/* 
+SELECT *
+FROM Student; */
+
+SELECT 
+ST.GivenName,
+ST.Surname,
+E.SubjCode,
+S.Description,
+E.Year,
+E.Semester, 
+SO.Fee, 
+T.GivenName,
+T.Surname
+
+FROM ENROLMENT E
+LEFT JOIN SubjectOffering SO 
+ON SO.SubjCode = E.SubjCode
+AND SO.[Year] = E.[Year]
+AND SO.Semester = E.Semester
+
+LEFT JOIN Student ST
+ON st.StudentID = e.StudentID
+
+LEFT JOIN Subject S
+on S.SubjCode = so.SubjCode
+
+LEFT join Teacher T
+on T.StaffID = so.StaffID
 
 
