@@ -172,13 +172,41 @@ ORDER BY E.YEAR ASC, E.Semester DESC */
 
 -- TASK4 QUERY 3 -- -
 
-SELECT E.StudentID, E.SubjCode, E.Year, E.Semester, SO.FEE
+/* SELECT E.StudentID, E.SubjCode, E.Year, E.Semester, SO.FEE
 FROM ENROLMENT E
 INNER JOIN SubjectOffering SO
 ON SO.SubjCode = E.SubjCode
 AND SO.[Year] = E.[Year]
 AND SO.Semester = E.Semester
 WHERE SO.Fee = (SELECT MAX(SO.Fee) FROM SubjectOffering SO)
+ */
 
+
+CREATE VIEW FLENROL AS
+SELECT 
+ST.GivenName,
+ST.Surname,
+E.SubjCode,
+S.Description,
+E.Year,
+E.Semester, 
+SO.Fee, 
+T.GivenName AS "TEACHER GIVENNAME",
+T.Surname AS "sTUDENT GIVENNAME"
+
+FROM ENROLMENT E
+LEFT JOIN SubjectOffering SO 
+ON SO.SubjCode = E.SubjCode
+AND SO.[Year] = E.[Year]
+AND SO.Semester = E.Semester
+
+LEFT JOIN Student ST
+ON st.StudentID = e.StudentID
+
+LEFT JOIN Subject S
+on S.SubjCode = so.SubjCode
+
+LEFT join Teacher T
+on T.StaffID = so.StaffID 
 
 
