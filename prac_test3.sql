@@ -44,34 +44,36 @@ CREATE TABLE STUDENT (
     StudentID NVARCHAR(10), 
     Surname NVARCHAR(100) NOT NULL, 
     GivenName NVARCHAR(100) NOT NULL, 
-    Gender NVARCHAR(1) CONSTRAINT Check_student_gender CHECK (Gender = "M""F""I") NULL,
+    Gender NVARCHAR(1) CONSTRAINT Check_student_gender CHECK (Gender = 'M''F''I') NULL,
     PRIMARY KEY (StudentID)
 );
 
 CREATE TABLE TEACHER (
-    StaffID INT CONSTRAINT Check_teacher_staff_id CHECK (LENGTH(StaffID) = 8), 
+    StaffID INT CONSTRAINT Check_teacher_staff_id CHECK (LEN (StaffID) = 8), 
     Surname NVARCHAR(100) NOT NULL, 
     GivenName NVARCHAR(100) NOT NULL
 );
 
 CREATE TABLE ENROLLMENT (
     StudentID NVARCHAR(10), 
-    Year INT CONSTRAINT Check_Enrollment_Year CHECK (LENGTH (Year) = 4), 
+    Year INT CONSTRAINT Check_Enrollment_Year CHECK (LEN (Year) = 4), 
     SubjCode NVARCHAR(100) , 
     Semester INT CONSTRAINT Check_Enrollment_Semester CHECK (Semester = 1 OR Semester = 2), 
     DateEnrolled DATE, 
     Grade NVARCHAR(2) CONSTRAINT Check_Enrollment_Grade CHECK (Grade = 'N''P''C''D''HD') NULL,
-    PRIMARY KEY (StudentID, Year, Semester, StaffID, SubjCode),
+    PRIMARY KEY (StudentID, Year, Semester, SubjCode),
     FOREIGN KEY (StudentID) REFERENCES STUDENT,
     FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SUBJECT_OFFERING
 );
 
 CREATE TABLE SUBJECT_OFFERING (
     SubjCode NVARCHAR(100), 
-    StaffID INT CONSTRAINT Check_SubjectOffering_staff_id CHECK (LENGTH(StaffID) = 8) NULL, 
-    Year INT CONSTRAINT Check_SubjectOffering_Year CHECK (LENGTH (Year) = 4), 
+    StaffID INT CONSTRAINT Check_SubjectOffering_staff_id CHECK (LEN (StaffID) = 8) NULL, 
+    Year INT CONSTRAINT Check_SubjectOffering_Year CHECK (LEN (Year) = 4), 
     Semester INT CONSTRAINT Check_SubjectOffering_Semester CHECK (Semester = 1 OR Semester = 2),  
     Fee MONEY CONSTRAINT Check_SubjectOffering_Fee CHECK (Fee > 0)
+    PRIMARY KEY (Year, Semester, SubjCode),
+    FOREIGN KEY (SubjCode) REFERENCES SUBJECT
 );
 
 SELECT * 
