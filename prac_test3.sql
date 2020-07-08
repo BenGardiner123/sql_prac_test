@@ -178,5 +178,9 @@ LEFT JOIN TEACHER t
 ON t.StaffID = so.StaffID
  */
 
-
+/* SELECT e.Year, e.Semester, COUNT(Distinct e.StudentID) as 'Num_Enrolments'
+FROM ENROLMENT e
+GROUP BY e.YEAR, e.Semester
+ORDER BY YEAR ASC, Semester DESC; 
+ */
 
