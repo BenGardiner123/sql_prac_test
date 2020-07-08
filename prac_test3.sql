@@ -27,7 +27,7 @@ FK:StaffID REFERENCES TEACHER
 
 -- Task 2
 
-DROP TABLE IF EXISTS ENROLLMENT;
+/* DROP TABLE IF EXISTS ENROLLMENT;
 DROP TABLE IF EXISTS SUBJECT_OFFERING;
 DROP TABLE IF EXISTS STUDENT;
 DROP TABLE IF EXISTS TEACHER;
@@ -35,46 +35,77 @@ DROP TABLE IF EXISTS SUBJECT;
 
 GO
 
-CREATE TABLE SUBJECT (
-    SubjCode NVARCHAR(100),
-    Description NVARCHAR(500)
-)
+SELECT 
+    *
+FROM
+    information_schema.tables; */
 
-CREATE TABLE STUDENT (
-    StudentID NVARCHAR(10), 
-    Surname NVARCHAR(100) NOT NULL, 
-    GivenName NVARCHAR(100) NOT NULL, 
-    Gender NVARCHAR(1) CONSTRAINT Check_student_gender CHECK (Gender = 'M''F''I') NULL,
-    PRIMARY KEY (StudentID)
+
+DROP TABLE IF EXISTS ENROLLMENT;
+DROP TABLE IF EXISTS SUBJECT_OFFERING;
+DROP TABLE IF EXISTS STUDENT;
+DROP TABLE IF EXISTS TEACHER;
+DROP TABLE IF EXISTS SUBJECT;
+
+
+
+CREATE TABLE SUBJECT(
+SubjCode NVARCHAR(100) 
+, Description NVARCHAR(500)
+, PRIMARY KEY (SubjCode)
 );
 
-CREATE TABLE TEACHER (
-    StaffID INT CONSTRAINT Check_teacher_staff_id CHECK (LEN (StaffID) = 8), 
-    Surname NVARCHAR(100) NOT NULL, 
-    GivenName NVARCHAR(100) NOT NULL
+
+CREATE TABLE TEACHER(
+StaffID INT CONSTRAINT check_TEACHER_sTAFFid CHECK (LEN(StaffID)= 8)
+, Surname NVARCHAR(100) NOT NULL
+, GivenName NVARCHAR(100) NOT NULL
+, PRIMARY KEY (StaffID)
 );
 
-CREATE TABLE ENROLLMENT (
-    StudentID NVARCHAR(10), 
-    Year INT CONSTRAINT Check_Enrollment_Year CHECK (LEN (Year) = 4), 
-    SubjCode NVARCHAR(100) , 
-    Semester INT CONSTRAINT Check_Enrollment_Semester CHECK (Semester = 1 OR Semester = 2), 
-    DateEnrolled DATE, 
-    Grade NVARCHAR(2) CONSTRAINT Check_Enrollment_Grade CHECK (Grade = 'N''P''C''D''HD') NULL,
-    PRIMARY KEY (StudentID, Year, Semester, SubjCode),
-    FOREIGN KEY (StudentID) REFERENCES STUDENT,
-    FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SUBJECT_OFFERING
+
+CREATE TABLE SUBJECTOFFERING(
+SubjCode NVARCHAR(100)
+, Year INT CONSTRAINT check_subjoffering_Year CHECK (LEN(Year)= 4)
+, Semester INT CONSTRAINT check_subjoffering_Semester CHECK (Semester = 1 or Semester = 2)
+, Fee MONEY CONSTRAINT check_subjoffering_Fee CHECK (Fee > 0) NOT NULL 
+, StaffID INT NULL
+, PRIMARY KEY (SubjCode, Year, Semester) 
+, Foreign key (SubjCode) REFEReNCES SUBJECT
+, Foreign key (StaffID) REFEReNCES TEACHER
 );
 
-CREATE TABLE SUBJECT_OFFERING (
-    SubjCode NVARCHAR(100), 
-    StaffID INT CONSTRAINT Check_SubjectOffering_staff_id CHECK (LEN (StaffID) = 8) NULL, 
-    Year INT CONSTRAINT Check_SubjectOffering_Year CHECK (LEN (Year) = 4), 
-    Semester INT CONSTRAINT Check_SubjectOffering_Semester CHECK (Semester = 1 OR Semester = 2),  
-    Fee MONEY CONSTRAINT Check_SubjectOffering_Fee CHECK (Fee > 0)
-    PRIMARY KEY (Year, Semester, SubjCode),
-    FOREIGN KEY (SubjCode) REFERENCES SUBJECT
+
+CREATE TABLE STUDENT(
+StudentID NVARCHAR(10)
+, Surname NVARCHAR(100) NOT NULL
+, GivenName NVARCHAR(100) NOT NULL
+, Gender NVARCHAR(1) CONSTRAINT Check_Student_Gender CHECK (Gender = 'M' or Gender = 'F' OR Gender = 'I') NULL
+, PRIMARY KEY (StudentID)
 );
 
-SELECT * 
-FROM sys.tables;
+
+CREATE TABLE ENROLMENT(
+StudentID NVARCHAR(10)
+, SubjCode NVARCHAR(100)
+, Year INT CONSTRAINT check_ENROLMENT_Year CHECK (LEN(Year)= 4)
+, Semester INT CONSTRAINT check_ENROLMENT_Semester CHECK (Semester = 1 or Semester = 2)
+, Grade NVARCHAR(2) CONSTRAINT check_ENROLMENT_Grade CHECK(Grade in('N', 'P', 'C', 'D', 'HD')) NULL
+, DateEnrolled DATE
+, PRIMARY KEY (StudentID, SubjCode, Year, Semester)
+, FOREIGN KEY (SubjCode, Year, Semester) REFERENCES SUBJECTOFFERING
+, FOREIGN KEY (StudentID) REFERENCES STUDENT
+);
+
+GO
+
+-- Task 2 check Tables
+
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES;
+EXEC SP_COLUMNS Subject;
+EXEC SP_COLUMNS Student;
+EXEC SP_COLUMNS Teacher;
+EXEC SP_COLUMNS SubjectOffering;
+EXEC SP_COLUMNS Enrolment;
+
+GO
