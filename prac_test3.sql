@@ -178,11 +178,12 @@ LEFT JOIN TEACHER t
 ON t.StaffID = so.StaffID
  */
 
-/* SELECT e.Year, e.Semester, COUNT(Distinct e.StudentID) as 'Num_Enrolments'
+/* SELECT e.Year, e.Semester, COUNT(e.StudentID) as 'Num_Enrolments'
 FROM ENROLMENT e
 GROUP BY e.YEAR, e.Semester
-ORDER BY YEAR ASC, Semester DESC; 
- */
+ORDER BY YEAR ASC, Semester DESC;  */
+ 
+
 
 /* SELECT *
 FROM ENROLMENT E
@@ -223,6 +224,53 @@ AS
     LEFT JOIN TEACHER t
     ON t.StaffID = so.StaffID  */
 
-SELECT * 
+-----------------------------QUERY 1 TEST BELOW --------------------------------------
+
+/* SELECT * 
 FROM fullenrol; 
        
+SELECT COUNT(*)
+FROM ENROLMENT; */
+
+-- the amount of entries matches.
+
+-----------------------------QUERY 2 TEST BELOW --------------------------------------
+
+/* SELECT DISTINCT StudentID,COUNT(*)
+FROM ENROLMENT
+GROUP BY StudentID;
+
+SELECT * 
+FROM ENROLMENT;   */
+
+-- this helped me find my error - i had used distinct for the student IDs earlier in brackets but as there was a doule enrolment i did not accurately total num of enrolments.
+
+-- Getting each distinct ID  and then couting the total entries was more acurate.
+
+
+-----------------------------QUERY 3 TEST BELOW --------------------------------------
+
+SELECT *
+FROM ENROLMENT E
+INNER JOIN SUBJECTOFFERING SO
+ON SO.Subjcode = E.Subjcode
+AND SO.YEAR = E.YEAR
+AND SO.Semester = E.Semester
+
+WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO)
+
+ORDER BY SO.Subjcode ASC; 
+
+SELECT COUNT(so.Fee)
+FROM enrolment e
+LEFT JOIN SubjectOffering so
+on  so.SubjCode = e.SubjCode
+and so.Year = e.[Year]
+and so.Semester = e.Semester 
+
+WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO)
+
+
+-- /checking using the  COUNT() function which returns the number of rows excluding nulls. We can see it matches.
+
+-- Whilst we could also match by outputting all the entries in enrolment i this small DB that would not be feasbile using a large dataset.
