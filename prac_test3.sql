@@ -41,15 +41,7 @@ FROM
     information_schema.tables; */
 
 
-/* DROP TABLE IF EXISTS ENROLLMENT;
-DROP TABLE IF EXISTS SUBJECT_OFFERING;
-DROP TABLE IF EXISTS STUDENT;
-DROP TABLE IF EXISTS TEACHER;
-DROP TABLE IF EXISTS SUBJECT;
-
-
-
-CREATE TABLE SUBJECT(
+/* CREATE TABLE SUBJECT(
 SubjCode NVARCHAR(100) 
 , Description NVARCHAR(500)
 , PRIMARY KEY (SubjCode)
@@ -108,8 +100,8 @@ EXEC SP_COLUMNS Teacher;
 EXEC SP_COLUMNS SubjectOffering;
 EXEC SP_COLUMNS Enrolment;
 
-GO */
-
+GO 
+ */
 -- TASK 3 Insert test data
 
 /* INSERT INTO STUDENT (StudentId, Surname, GivenName, Gender) VALUES
@@ -250,7 +242,7 @@ FROM ENROLMENT;   */
 
 -----------------------------QUERY 3 TEST BELOW --------------------------------------
 
-SELECT *
+/* SELECT *
 FROM ENROLMENT E
 INNER JOIN SUBJECTOFFERING SO
 ON SO.Subjcode = E.Subjcode
@@ -268,9 +260,27 @@ on  so.SubjCode = e.SubjCode
 and so.Year = e.[Year]
 and so.Semester = e.Semester 
 
-WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO)
+WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO) */
 
 
 -- /checking using the  COUNT() function which returns the number of rows excluding nulls. We can see it matches.
 
 -- Whilst we could also match by outputting all the entries in enrolment i this small DB that would not be feasbile using a large dataset.
+
+SELECT 
+    *
+FROM
+    information_schema.tables;
+
+
+
+
+
+/* 
+DROP TABLE IF EXISTS ENROLLMENT;
+DROP TABLE IF EXISTS SUBJECT_OFFERING;
+DROP TABLE IF EXISTS STUDENT;
+DROP TABLE IF EXISTS TEACHER;
+DROP TABLE IF EXISTS SUBJECT; */
+
+
