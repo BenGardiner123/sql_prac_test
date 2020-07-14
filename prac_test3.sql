@@ -194,3 +194,35 @@ AND SO.Semester = E.Semester
 WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO)
 
 ORDER BY SO.Subjcode ASC; */
+
+-- Create the view in the specified schema
+/* CREATE VIEW fullenrol
+AS
+    -- body of the view
+    SELECT st.GivenName as "Student Given Name",
+        st.Surname as "Student Surname",
+        s.Subjcode as "Subject Code",
+        s.Description, 
+        so.Year, 
+        so.Semester,
+        so.Fee, 
+        t.GivenName as "Teacher Given Name", 
+        t.Surname as "Teacher Surname"
+    FROM  SUBJECTOFFERING so 
+    left JOIN ENROLMENT e 
+    ON so.SubjCode = e.SubjCode
+    AND so.Year = e.Year
+    AND so.Semester = e.Semester
+
+    LEFT JOIN STUDENT st
+    ON st.StudentID = e.studentID 
+
+    LEFT JOIN SUBJECT s
+    ON s.SubjCode = so.SubjCode
+
+    LEFT JOIN TEACHER t
+    ON t.StaffID = so.StaffID  */
+
+SELECT * 
+FROM fullenrol; 
+       
