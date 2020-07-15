@@ -267,20 +267,5 @@ WHERE SO.FEE = (SELECT MAX(SO.Fee) FROM SUBJECTOFFERING SO) */
 
 -- Whilst we could also match by outputting all the entries in enrolment i this small DB that would not be feasbile using a large dataset.
 
-SELECT 
-    *
-FROM
-    information_schema.tables;
-
-
-
-
-
-/* 
-DROP TABLE IF EXISTS ENROLLMENT;
-DROP TABLE IF EXISTS SUBJECT_OFFERING;
-DROP TABLE IF EXISTS STUDENT;
-DROP TABLE IF EXISTS TEACHER;
-DROP TABLE IF EXISTS SUBJECT; */
 
 
