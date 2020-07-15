@@ -1,58 +1,74 @@
+
+-- DROP TABLE STAFF_ALLOCATION; 
+-- DROP TABLE COURSE_OFFERING; 
+-- DROP TABLE STAFF;  
+-- DROP TABLE WAREHOUSE;
+-- DROP TABLE COURSE;
+-- DROP TABLE CUSTOMER;
+-- DROP TABLE BOOKING; 
+
+SELECT 
+    *
+FROM
+    information_schema.tables;
+
+
 CREATE TABLE STAFF (
 StaffLastname NVARCHAR(100) NOT NULL,	  
 StaffFirstName	NVARCHAR(100) NOT NULL,	
 StaffID	NVARCHAR(100) NOT NULL,
 PRIMARY KEY (StaffID)	
-)
+);
 
 CREATE TABLE WAREHOUSE(
-WarehouseLocation NVARCHAR(100)
+WarehouseLocation NVARCHAR(100) NOT NULL,
 PRIMARY KEY (WarehouseLocation)	
-)
+);
 
 CREATE TABLE CUSTOMER (
-CustomerID	INT,	
+CustomerID NVARCHAR(50),		
 CustomerName  NVARCHAR(100) NOT NULL,
 CustomerAddress	NVARCHAR(100) NOT NULL,
 CustomerCity  NVARCHAR(100) NOT NULL,
 PRIMARY KEY (CustomerID)	
-)
+);
 
 CREATE TABLE COURSE (
 CourseID	NVARCHAR(25),
 CourseName	NVARCHAR(100) NOT NULL,
 PRIMARY KEY (CourseID)	
-)
+);
 
 CREATE TABLE COURSE_OFFERING (
-WarehouseLocation NVARCHAR(100),
-CourseID NVARCHAR(25),
-CourseDate DATE
-PRIMARY KEY (WarehouseLocation,CourseID,CourseDate) 
-FOREIGN KEY (CourseID) REFERENCES COURSE
+WarehouseLocation NVARCHAR(100) NOT NULL,
+CourseID NVARCHAR(25) NOT NULL,
+CourseDate DATE CHECK (LEN(CourseDate) = 8),
+PRIMARY KEY (WarehouseLocation,CourseID,CourseDate), 
+FOREIGN KEY (CourseID) REFERENCES COURSE,
 FOREIGN KEY (WarehouseLocation) REFERENCES WAREHOUSE
-)
+);
 
 CREATE TABLE  BOOKING (
-CustomerID NVARCHAR(50),	
-WarehouseLocation NVARCHAR(100),	
-CourseID NVARCHAR(25),	
+CustomerID NVARCHAR(50) NOT NULL,	
+WarehouseLocation NVARCHAR(100) NOT NULL,	
+CourseID NVARCHAR(25) NOT NULL,	
 CourseDate DATE CHECK (LEN(CourseDate) = 8),
-BookingDate	DATE CHECK (LEN(CourseDate) = 8),
+BookingDate	DATE CHECK (LEN(BookingDate) = 8),
 PaymentAmount MONEY CHECK (PaymentAmount > 0) NOT NULL, 
 Review NVARCHAR(100) NULL,
 
 PRIMARY KEY (CustomerID, WarehouseLocation, CourseID, CourseDate),	
 FOREIGN KEY (WarehouseLocation, CourseID, CourseDate) REFERENCES COURSE_OFFERING,
 FOREIGN KEY (CustomerID) REFERENCES CUSTOMER
-)
+);
 
 CREATE TABLE STAFF_ALLOCATION (
-StaffID	NVARCHAR(100),
+StaffID	NVARCHAR(100) NOT NULL,
 CourseDate DATE CHECK (LEN(CourseDate) = 8),
-WarehouseLocation NVARCHAR(100),
-CourseID NVARCHAR(25)
-PRIMARY KEY (StaffID, CourseDate, CourseID, WarehouseLocation)
-FOREIGN KEY (StaffID) REFERENCES STAFF
+WarehouseLocation NVARCHAR(100) NOT NULL,
+CourseID NVARCHAR(25) NOT NULL,
+PRIMARY KEY (StaffID, CourseDate, CourseID, WarehouseLocation),
+FOREIGN KEY (StaffID) REFERENCES STAFF,
 FOREIGN KEY (CourseDate, WarehouseLocation, CourseID) REFERENCES COURSE_OFFERING
-)
+);
+ 
